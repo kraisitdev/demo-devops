@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_USER: pgadmin
+      POSTGRES_PASSWORD: P@ssw0rd
+      PGDATA: /data/postgres
+      TZ: 'Asia/Bangkok'
+      PGTZ: 'Asia/Bangkok'
+    volumes:
+      - ./data/postgres:/data/postgres
+    ports:
+      - '54301:5432'
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:6.4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: P@ssw0rd
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      TZ: 'Asia/Bangkok'
+    volumes:
+      - ./root/.pgadmin:/root/.pgadmin
+
+    ports:
+      - '50501:80'
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge

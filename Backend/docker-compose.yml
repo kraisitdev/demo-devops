@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  crypto-random:
+    container_name: crypto-random
+    image: crypto-random:0.1.0
+    ports:
+      - 41480:8000
+    environment:
+      - TZ=Asia/Bangkok
+      - ASPNETCORE_ENVIRONMENT=uat

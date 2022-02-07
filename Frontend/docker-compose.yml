@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  demo-gui:
+    container_name: demo-gui
+    image: demo-gui:0.1.0
+    ports:
+      - 51590:80
